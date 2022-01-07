@@ -1,0 +1,19 @@
+name: Staging deploy
+on:
+  workflow_dispatch:
+  
+jobs:
+  trying-to-use-environment-secrets:
+    runs-on: ubuntu-latest
+    environment: test-env #<---The only difference we need to specify what environment to use for environment secrets
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Test
+        env:
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        run: |
+          echo ${#AWS_ACCESS_KEY}
+          echo ${#AWS_ACCESS_KEY_ID}
