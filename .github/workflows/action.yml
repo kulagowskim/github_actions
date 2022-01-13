@@ -1,0 +1,21 @@
+name: GitHub Actions Demo
+on: 
+  push:
+    branches:
+      - master
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository coSde
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+      - name: Set env
+        run: echo "GITHUB_SHA_SHORT=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})" >> $GITHUB_ENV
+      - name: Test
+        run: echo $GITHUB_SHA_SHORT
+      - name: Install contentful migrations
+        run: npm i -g contentful-migration-cli
+      - name: migrate
+        run: contentful-migration --space-id ${{ secrets.CONTENTFUL_ID }} --access-token ${{ secrets.CONTENTFUL_TOKEN }} $GITHUB_SHA_SHORT --yes
