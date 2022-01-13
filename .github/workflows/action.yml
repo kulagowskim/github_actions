@@ -17,4 +17,4 @@ jobs:
       - run: echo "🍏 This job's status is ${{ job.status }}."
       - run: git diff-tree --no-commit-id --name-only -r ${{ github.sha }}
       - name: TEST
-        - run: echo "CHANGED_FILES=$(git diff --name-only ${{ github.event.before }}..${{ github.event.after }})" >> $GITHUB_ENV
+        run: echo "CHANGED_FILES=$(git diff --name-only ${{ github.event.before }}..${{ github.event.after }})" >> $GITHUB_ENV
