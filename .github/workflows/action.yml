@@ -14,3 +14,5 @@ jobs:
         run: echo $GITHUB_SHA_SHORT
       - name: Install contentful migrations
         run: npm i contentful-migration-cli
+      - name: migrate
+        run: contentful-migration --space-id ${{ CONTENTFUL_ID }} --access-token ${{ CONTENTFUL_TOKEN }} ${{ $GITHUB_SHA_SHORT }}
